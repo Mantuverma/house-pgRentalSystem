@@ -35,3 +35,58 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
     const imageUrls = await Promise.all(uploadPromises);
     return imageUrls;
 }
+
+export const getAllHotel = async (req: Request, res: Response) => {
+    try {
+        const hotels = await Hotel.find({ userId: req.userId });
+        res.json(hotels);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching hotels" });
+    }
+};
+
+export const getHotelById = async (req: Request, res: Response) => {
+    const id = req.params.id.toString();
+    try {
+        const hotel = await Hotel.findOne({
+            _id: id,
+            userId: req.userId,
+        });
+        res.json(hotel);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching hotels" });
+    }
+}
+
+export const updatedHotelDetails = async (req: Request, res: Response) => {
+    try {
+        const updatedHotel: HotelType = req.body;
+        updatedHotel.lastUpdated = new Date();
+
+        const hotel = await Hotel.findOneAndUpdate(
+            {
+                _id: req.params.hotelId,
+                userId: req.userId,
+            },
+            updatedHotel,
+            { new: true }
+        );
+
+        if (!hotel) {
+            return res.status(404).json({ message: "Hotel not found" });
+        }
+
+        const files = req.files as Express.Multer.File[];
+        const updatedImageUrls = await uploadImages(files);
+
+        hotel.imageUrls = [
+            ...updatedImageUrls,
+            ...(updatedHotel.imageUrls || []),
+        ];
+
+        await hotel.save();
+        res.status(201).json(hotel);
+    } catch (error) {
+        res.status(500).json({ message: "Something went throw" });
+    }
+}
