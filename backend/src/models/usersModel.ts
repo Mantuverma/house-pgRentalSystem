@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { UserType } from "../shared/share";
+import { UserType } from "../shared/types";
 import bcrypt from "bcryptjs"
 const userSchema = new mongoose.Schema({
     email: {
