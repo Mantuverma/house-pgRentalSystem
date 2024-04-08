@@ -44,7 +44,7 @@ function App() {
           {isLoggedIn && (
             <>
               <Route
-                path="/add-hotel"
+                path="/addhotel"
                 element={
                   <Layout>
                     <AddHotel />
