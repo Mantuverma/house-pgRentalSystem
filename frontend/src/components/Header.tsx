@@ -19,8 +19,9 @@ const Header = () => {
                                 My Bookings
                             </Link>
                             <Link
+                                to="/myhotel"
                                 className="flex rounded-sm items-center text-white px-3 font-bold hover:bg-blue-600"
-                                to="/my-hotels"
+
                             >
                                 My Hotels
                             </Link>

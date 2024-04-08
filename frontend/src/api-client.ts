@@ -3,7 +3,7 @@ import { RegisterFormData } from './page/Register';
 import { SignInFormData } from './page/Signin';
 import { HotelType } from "../../backend/src/shared/types"
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 console.log(API_BASE_URL)
 export const register = async (formData: RegisterFormData) => {
   const response = await fetch(`${API_BASE_URL}/api/user/registeration`, {
@@ -77,7 +77,7 @@ export const addMyHotel = async (hotelFormData: FormData) => {
 };
 
 export const fetchMyHotels = async (): Promise<HotelType[]> => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+  const response = await fetch(`${API_BASE_URL}/api/getAllHotel`, {
     credentials: "include",
   });
 
