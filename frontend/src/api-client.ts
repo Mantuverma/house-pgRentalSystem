@@ -102,7 +102,7 @@ export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
 
 export const updateMyHotelById = async (hotelFormData: FormData) => {
   const response = await fetch(
-    `${API_BASE_URL}/api/my-hotels/${hotelFormData.get("hotelId")}`,
+    `${API_BASE_URL}/api/hotel/updateHodel/${hotelFormData.get("hotelId")}`,
     {
       method: "PUT",
       body: hotelFormData,
@@ -117,19 +117,19 @@ export const updateMyHotelById = async (hotelFormData: FormData) => {
   return response.json();
 };
 
-// export type SearchParams = {
-//   destination?: string;
-//   checkIn?: string;
-//   checkOut?: string;
-//   adultCount?: string;
-//   childCount?: string;
-//   page?: string;
-//   facilities?: string[];
-//   types?: string[];
-//   stars?: string[];
-//   maxPrice?: string;
-//   sortOption?: string;
-// };
+export type SearchParams = {
+  destination?: string;
+  checkIn?: string;
+  checkOut?: string;
+  adultCount?: string;
+  childCount?: string;
+  page?: string;
+  facilities?: string[];
+  types?: string[];
+  stars?: string[];
+  maxPrice?: string;
+  sortOption?: string;
+};
 
 // export const searchHotels = async (
 //   searchParams: SearchParams

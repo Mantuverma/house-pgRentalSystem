@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser"
 import path from "path";
 import { v2 as cloudinary } from "cloudinary";
 import hotelRouter from "./route/hotelRouter";
+import seachRoute from "../src/route/searchRoute"
 import morgan from 'morgan';
 
 cloudinary.config({
@@ -30,7 +31,7 @@ const port = process.env.PORT || 8000;
 app.use(express.static(path.join(__dirname, "../../frontend/dist")))
 app.use("/api/user", userRouter)
 app.use("/api/hotel", hotelRouter)
-
+app.use("/api/search", seachRoute)
 dbConnect();
 
 

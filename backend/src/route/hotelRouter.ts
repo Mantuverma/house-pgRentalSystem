@@ -1,6 +1,6 @@
 import express from "express"
 import verifyToken from "../middleware/auth";
-import { addNewHotel, getAllHotel, getHotelById } from "../controllers/hotelController";
+import { addNewHotel, getAllHotel, getHotelById, updatedHotelDetails } from "../controllers/hotelController";
 const hotelRouter = express.Router();
 import multer from "multer"
 const storage = multer.memoryStorage();
@@ -16,4 +16,5 @@ hotelRouter.post("/addHotel", verifyToken, upload.array("imageFiles", 6), addNew
 
 hotelRouter.get("/myHotel", verifyToken, getAllHotel)
 hotelRouter.get("/myHotel/:id", verifyToken, getHotelById)
+hotelRouter.put("/updateHodel/:id", verifyToken, upload.array("imageFiles"), updatedHotelDetails)
 export default hotelRouter;

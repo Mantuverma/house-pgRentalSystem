@@ -73,7 +73,7 @@ export const updatedHotelDetails = async (req: Request, res: Response) => {
 
         const hotel = await Hotel.findOneAndUpdate(
             {
-                _id: req.params.hotelId,
+                _id: req.params.id,
                 userId: req.userId,
             },
             updatedHotel,
