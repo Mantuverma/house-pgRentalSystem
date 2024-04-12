@@ -38,6 +38,8 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
 
 export const getAllHotel = async (req: Request, res: Response) => {
     try {
+        console.log()
+
         const hotels = await Hotel.find({ userId: req.userId });
         res.json(hotels);
     } catch (error) {
@@ -48,11 +50,17 @@ export const getAllHotel = async (req: Request, res: Response) => {
 export const getHotelById = async (req: Request, res: Response) => {
     const id = req.params.id.toString();
     try {
+        if (!id) {
+            return res.json(
+                { message: "Please provide hotel id" }
+            )
+        }
         const hotel = await Hotel.findOne({
             _id: id,
             userId: req.userId,
         });
-        res.json(hotel);
+        console.log(hotel)
+        return res.json(hotel)
     } catch (error) {
         res.status(500).json({ message: "Error fetching hotels" });
     }
