@@ -1,7 +1,7 @@
 // import axios from 'axios';
 import { RegisterFormData } from './page/Register';
 import { SignInFormData } from './page/Signin';
-import { HotelType } from "../../backend/src/shared/types"
+import { HotelSearchResponse, HotelType } from "../../backend/src/shared/types"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 console.log(API_BASE_URL)
@@ -131,37 +131,37 @@ export type SearchParams = {
   sortOption?: string;
 };
 
-// export const searchHotels = async (
-//   searchParams: SearchParams
-// ): Promise<HotelSearchResponse> => {
-//   const queryParams = new URLSearchParams();
-//   queryParams.append("destination", searchParams.destination || "");
-//   queryParams.append("checkIn", searchParams.checkIn || "");
-//   queryParams.append("checkOut", searchParams.checkOut || "");
-//   queryParams.append("adultCount", searchParams.adultCount || "");
-//   queryParams.append("childCount", searchParams.childCount || "");
-//   queryParams.append("page", searchParams.page || "");
+export const searchHotels = async (
+  searchParams: SearchParams
+): Promise<HotelSearchResponse> => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("destination", searchParams.destination || "");
+  queryParams.append("checkIn", searchParams.checkIn || "");
+  queryParams.append("checkOut", searchParams.checkOut || "");
+  queryParams.append("adultCount", searchParams.adultCount || "");
+  queryParams.append("childCount", searchParams.childCount || "");
+  queryParams.append("page", searchParams.page || "");
 
-//   queryParams.append("maxPrice", searchParams.maxPrice || "");
-//   queryParams.append("sortOption", searchParams.sortOption || "");
+  queryParams.append("maxPrice", searchParams.maxPrice || "");
+  queryParams.append("sortOption", searchParams.sortOption || "");
 
-//   searchParams.facilities?.forEach((facility) =>
-//     queryParams.append("facilities", facility)
-//   );
+  searchParams.facilities?.forEach((facility) =>
+    queryParams.append("facilities", facility)
+  );
 
-//   searchParams.types?.forEach((type) => queryParams.append("types", type));
-//   searchParams.stars?.forEach((star) => queryParams.append("stars", star));
+  searchParams.types?.forEach((type) => queryParams.append("types", type));
+  searchParams.stars?.forEach((star) => queryParams.append("stars", star));
 
-//   const response = await fetch(
-//     `${API_BASE_URL}/api/hotels/search?${queryParams}`
-//   );
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/search?${queryParams}`
+  );
 
-//   if (!response.ok) {
-//     throw new Error("Error fetching hotels");
-//   }
+  if (!response.ok) {
+    throw new Error("Error fetching hotels");
+  }
 
-//   return response.json();
-// };
+  return response.json();
+};
 
 // export const fetchHotels = async (): Promise<HotelType[]> => {
 //   const response = await fetch(`${API_BASE_URL}/api/hotels`);

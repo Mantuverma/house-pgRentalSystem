@@ -31,7 +31,7 @@ const port = process.env.PORT || 8000;
 app.use(express.static(path.join(__dirname, "../../frontend/dist")))
 app.use("/api/user", userRouter)
 app.use("/api/hotel", hotelRouter)
-app.use("/api/search", searchRoute)
+app.use("/api/hotels", searchRoute)
 dbConnect();
 
 
