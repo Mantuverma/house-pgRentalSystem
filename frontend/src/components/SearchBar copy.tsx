@@ -46,7 +46,7 @@ const SearchBar = () => {
         />
       </div>
 
-      {/* <div className="flex bg-white px-2 py-1 gap-2">
+      <div className="flex bg-white px-2 py-1 gap-2">
         <label className="items-center flex">
           Adults:
           <input
@@ -69,7 +69,7 @@ const SearchBar = () => {
             onChange={(event) => setChildCount(parseInt(event.target.value))}
           />
         </label>
-      </div> */}
+      </div>
       <div>
         <DatePicker
           selected={checkIn}
