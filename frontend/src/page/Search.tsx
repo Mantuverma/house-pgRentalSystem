@@ -6,16 +6,16 @@ import SearchResultsCard from "../components/SearchResultsCard";
 // import { useState } from "react";
 // // import SearchResultsCard from "../components/SearchResultsCard";
 // // import Pagination from "../components/Pagination";
-// // import StarRatingFilter from "../components/StarRatingFilter";
-// // import HotelTypesFilter from "../components/HotelTypesFilter";
+import StarRatingFilter from "../components/StarRatingFilter";
+import HotelTypesFilter from "../components/HotelTypesFilter";
 // // import FacilitiesFilter from "../components/FacilitiesFilter";
 // // import PriceFilter from "../components/PriceFilter";
 
 export const Search = () => {
   const search = useSearchContext();
   const [page, setPage] = useState<number>(1);
-  // const [selectedStars, setSelectedStars] = useState<string[]>([]);
-  // const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
+  const [selectedStars, setSelectedStars] = useState<string[]>([]);
+  const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
   // const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
   // const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
   // const [sortOption, setSortOption] = useState<string>("");
@@ -27,8 +27,8 @@ export const Search = () => {
     adultCount: search.adultCount.toString(),
     childCount: search.childCount.toString(),
     page: page.toString(),
-    // stars: selectedStars,
-    // types: selectedHotelTypes,
+    stars: selectedStars,
+    types: selectedHotelTypes,
     // facilities: selectedFacilities,
     // maxPrice: selectedPrice?.toString(),
     // sortOption,
@@ -39,27 +39,27 @@ export const Search = () => {
   );
 
 
-  //   const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     const starRating = event.target.value;
+  const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const starRating = event.target.value;
 
-  //     setSelectedStars((prevStars) =>
-  //       event.target.checked
-  //         ? [...prevStars, starRating]
-  //         : prevStars.filter((star) => star !== starRating)
-  //     );
-  //   };
+    setSelectedStars((prevStars) =>
+      event.target.checked
+        ? [...prevStars, starRating]
+        : prevStars.filter((star) => star !== starRating)
+    );
+  };
 
-  //   const handleHotelTypeChange = (
-  //     event: React.ChangeEvent<HTMLInputElement>
-  //   ) => {
-  //     const hotelType = event.target.value;
+  const handleHotelTypeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const hotelType = event.target.value;
 
-  //     setSelectedHotelTypes((prevHotelTypes) =>
-  //       event.target.checked
-  //         ? [...prevHotelTypes, hotelType]
-  //         : prevHotelTypes.filter((hotel) => hotel !== hotelType)
-  //     );
-  //   };
+    setSelectedHotelTypes((prevHotelTypes) =>
+      event.target.checked
+        ? [...prevHotelTypes, hotelType]
+        : prevHotelTypes.filter((hotel) => hotel !== hotelType)
+    );
+  };
 
   //   const handleFacilityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //     const facility = event.target.value;
@@ -78,6 +78,14 @@ export const Search = () => {
           <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">
             Filter by:
           </h3>
+          <StarRatingFilter
+            selectedStars={selectedStars}
+            onChange={handleStarsChange}
+          />
+          <HotelTypesFilter
+            selectedHotelTypes={selectedHotelTypes}
+            onChange={handleHotelTypeChange}
+          />
         </div>
 
       </div>
