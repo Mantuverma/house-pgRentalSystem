@@ -5,19 +5,19 @@ import { useState } from "react";
 import SearchResultsCard from "../components/SearchResultsCard";
 // import { useState } from "react";
 // // import SearchResultsCard from "../components/SearchResultsCard";
-// // import Pagination from "../components/Pagination";
+import Pagination from "../components/Pagination";
 import StarRatingFilter from "../components/StarRatingFilter";
 import HotelTypesFilter from "../components/HotelTypesFilter";
-// // import FacilitiesFilter from "../components/FacilitiesFilter";
-// // import PriceFilter from "../components/PriceFilter";
+import FacilitiesFilter from "../components/FacilitiesFilter";
+import PriceFilter from "../components/PriceFilter";
 
 export const Search = () => {
   const search = useSearchContext();
   const [page, setPage] = useState<number>(1);
   const [selectedStars, setSelectedStars] = useState<string[]>([]);
   const [selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
-  // const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
-  // const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
+  const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
   // const [sortOption, setSortOption] = useState<string>("");
 
   const searchParams = {
@@ -29,7 +29,7 @@ export const Search = () => {
     page: page.toString(),
     stars: selectedStars,
     types: selectedHotelTypes,
-    // facilities: selectedFacilities,
+    facilities: selectedFacilities,
     // maxPrice: selectedPrice?.toString(),
     // sortOption,
   };
@@ -61,15 +61,15 @@ export const Search = () => {
     );
   };
 
-  //   const handleFacilityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     const facility = event.target.value;
+  const handleFacilityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const facility = event.target.value;
 
-  //     setSelectedFacilities((prevFacilities) =>
-  //       event.target.checked
-  //         ? [...prevFacilities, facility]
-  //         : prevFacilities.filter((prevFacility) => prevFacility !== facility)
-  //     );
-  //   };
+    setSelectedFacilities((prevFacilities) =>
+      event.target.checked
+        ? [...prevFacilities, facility]
+        : prevFacilities.filter((prevFacility) => prevFacility !== facility)
+    );
+  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
@@ -86,6 +86,14 @@ export const Search = () => {
             selectedHotelTypes={selectedHotelTypes}
             onChange={handleHotelTypeChange}
           />
+          <FacilitiesFilter
+            selectedFacilities={selectedFacilities}
+            onChange={handleFacilityChange}
+          />
+          <PriceFilter
+            selectedPrice={selectedPrice}
+            onChange={(value?: number) => setSelectedPrice(value)}
+          />
         </div>
 
       </div>
@@ -98,7 +106,16 @@ export const Search = () => {
         </div>
         {hotelData?.data.map((hotel) => (
           <SearchResultsCard hotel={hotel} />
+
         ))}
+        <div>
+          <Pagination
+            page={hotelData?.pagination.page || 1}
+            pages={hotelData?.pagination.pages || 1}
+            onPageChange={(page) => setPage(page)}
+          />
+        </div>
+
       </div>
 
     </div>
