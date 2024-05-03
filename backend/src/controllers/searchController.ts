@@ -102,3 +102,15 @@ const constructSearchQuery = (queryParams: any) => {
     }
 }
 
+
+
+export const HotelDetails = async (req: Request, res: Response) => {
+    const id = req.params.id.toString();
+    try {
+        const hotel = await Hotel.findById(id);
+        res.json(hotel);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error fetching hotel" });
+    }
+}
